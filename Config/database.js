@@ -16,7 +16,7 @@ const MYSQL_DB_HOST = 'junction.proxy.rlwy.net';
 const MYSQL_DB_USER = 'root';
 const MYSQL_DB_PASSWORD = 'GHokBXMoTedzAWIqDPiNnAPgSNFYEiMj';
 const MYSQL_DB_NAME = 'railway'; // O usa el nombre de tu base de datos si es diferente
-const MYSQL_DB_PORT = '21421';
+const MYSQL_DB_PORT = 21421;
 
 // Configuración de la conexión a la base de datos
 const bd = mysql.createPool({

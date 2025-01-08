@@ -1,5 +1,5 @@
 const { addKeyword } = require('@bot-whatsapp/bot')
-const MySQLAdapter = require('@bot-whatsapp/database/mysql');
+const { bd } = require('../Config/database.js');
 
 function validar(nombre,usr){
     let val = false
@@ -95,6 +95,15 @@ const REGEX3= `/^(d10)$/i`
 
 const flujod10 = addKeyword(REGEX3, { regex: true })
 .addAction(async (ctx, { gotoFlow, endFlow, flowDynamic }) => {
+    (async () => {
+        try {
+            const [rows] = await bd.query('SELECT 1 + 1 AS result');
+            console.log('Conexión exitosa:', rows);
+        } catch (error) {
+            console.error('Error conectando a la base de datos:', error);
+        }
+    })();    
+
     if(validar(ctx.from,ctx.pushName) == true){
         return endFlow({
             body: d10(),
