@@ -27,7 +27,7 @@ const flujoagindice = addKeyword(REGEX2, { regex: true })
             let ag = mensaje.split(" ")
 
             const queryInsert = 'INSERT INTO indice (nombre,descripcion) VALUES (?,?)';
-            const insertResult = await bd.query(queryInsert, [ag[1],ag[2]]);
+            const [insertResult] = await bd.query(queryInsert, [ag[1],ag[2]]);
 
             if (insertResult && insertResult.affectedRows > 0) {
                 await flowDynamic("Insertado: " + ag[1] + " descripcion: " + ag[2]);
@@ -44,7 +44,7 @@ const flujoindice = addKeyword("/b_ind")
         const query1 = 'SELECT * FROM indice';
         
         try {
-            const rows = await bd.query(query1);
+            const [rows] = await bd.query(query1);
             let mensaje = "";
 
             rows.forEach(e => {
@@ -70,7 +70,7 @@ const flujoAgclas = addKeyword(REGEX1, { regex: true })
             let ag = mensaje.split("-")
 
             const queryInsert = 'INSERT INTO clases (nombre) VALUES (?)';
-            const insertResult = await bd.query(queryInsert, [ag[1]]);
+            const [insertResult] = await bd.query(queryInsert, [ag[1]]);
 
             if (insertResult && insertResult.affectedRows > 0) {
                 await flowDynamic("Insertado: " + ag[1]);
@@ -95,7 +95,7 @@ const flujoAgraz = addKeyword(REGEX, { regex: true })
             let ag = mensaje.split("-")
 
             const queryInsert = 'INSERT INTO razas (nombre) VALUES (?)';
-            const insertResult = await bd.query(queryInsert, [ag[1]]);
+            const [insertResult] = await bd.query(queryInsert, [ag[1]]);
 
             if (insertResult && insertResult.affectedRows > 0) {
                 await flowDynamic("Insertado: " + ag[1]);

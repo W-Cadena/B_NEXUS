@@ -53,7 +53,7 @@ const flujoPrinR = addKeyword('FLUJO_PRINS')
             if (result1) {
                 // Usuario ya existe, actualizamos
                 const queryUpdate = 'UPDATE usuarios SET nombre = ? WHERE numero = ?';
-                const updateResult = await bd.query(queryUpdate, [nombre, numero]);
+                const [updateResult] = await bd.query(queryUpdate, [nombre, numero]);
 
                 if (updateResult && updateResult.affectedRows > 0) {
                     return gotoFlow(flujoRegi);
@@ -64,7 +64,7 @@ const flujoPrinR = addKeyword('FLUJO_PRINS')
             } else {
                 // Usuario no existe, lo insertamos
                 const queryInsert = 'INSERT INTO usuarios (nombre, numero) VALUES (?, ?)';
-                const insertResult = await bd.query(queryInsert, [nombre, numero]);
+                const [insertResult] = await bd.query(queryInsert, [nombre, numero]);
 
                 if (insertResult && insertResult.affectedRows > 0) {
                     return gotoFlow(flujoRegi);
@@ -86,7 +86,8 @@ const flujoPrinR = addKeyword('FLUJO_PRINS')
         let numero = ctx.from;
         const query2 = 'SELECT nombre FROM usuarios WHERE numero = ?';
         try{
-            const [result2] = await bd.query(query2, [numero]);
+            const [results2] = await bd.query(query2, [numero]);
+            const result2 = results2[0];
 
             if(result2){
                 await flowDynamic( `El nombre que escogio es: _*${result2.nombre}*_ \n esta seguro? \n[]-> si \n[]-> no`);

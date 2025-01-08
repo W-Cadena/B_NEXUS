@@ -10,8 +10,6 @@ async function validar(nombre, numero) {
         
         try {
             const [rows] = await bd.query(query1, [num]);
-            console.log(rows)
-            console.log("---------------")
 
             if (rows) {
                 val = true;
@@ -105,7 +103,7 @@ async function separarnombre(numero, ficha) {
     const query1 = 'SELECT * FROM razas';
         
     try {
-        const rows = await bd.query(query1);
+        const [rows] = await bd.query(query1);
 
         rows.forEach(e => {
             if(raz.includes(e.nombre.toLowerCase())){
@@ -125,7 +123,7 @@ async function separarnombre(numero, ficha) {
         
     try {
         val = 0
-        const rows1 = await bd.query(query2);
+        const [rows1] = await bd.query(query2);
 
         rows1.forEach(e => {
             if(clas.includes(e.nombre.toLowerCase())){
@@ -145,7 +143,7 @@ async function separarnombre(numero, ficha) {
         
     try {
         val = 0
-        const insertResult = await bd.query(query3,[nombre,numero,clase,raza,ficha]);
+        const [insertResult] = await bd.query(query3,[nombre,numero,clase,raza,ficha]);
 
         if (insertResult && insertResult.affectedRows > 0) {
             return true;
@@ -259,7 +257,8 @@ const flujoPrinF = addKeyword('FLUJO_PRINS')
     const query1 = 'SELECT f.observaciones, s.nombre FROM fichas_aceptadas f INNER JOIN usuarios s on s.numero = f.numero WHERE id_ficha = ?';
         
     try {
-        const [rows1] = await bd.query(query,[ctx.body]);
+        const [row1] = await bd.query(query,[ctx.body]);
+        const rows1 = row1[0];
         const rows = await bd.query(query1,[ctx.body]);
 
         if(rows1){
@@ -310,9 +309,6 @@ const flujoPrinF = addKeyword('FLUJO_PRINS')
 
         try {
             const [rows1] = await bd.query(query,busqueda);
-
-            console.log(rows1[0])
-            console.log("---------------")
 
             if(rows1){
                 rows1.forEach(e => {
@@ -464,7 +460,7 @@ const flujoPrinF = addKeyword('FLUJO_PRINS')
         let numero = ctx.from;
 
         const queryUpdate = 'UPDATE fichas SET ficha = ? WHERE numero = ? AND modificar = 1';
-        const updateResult = await bd.query(queryUpdate, [nombre, numero]);
+        const [updateResult] = await bd.query(queryUpdate, [nombre, numero]);
         
         if (updateResult && updateResult.affectedRows > 0) {
             await flowDynamic('Nueva clase: ' + nombre);
@@ -489,7 +485,7 @@ const flujoPrinF = addKeyword('FLUJO_PRINS')
         let numero = ctx.from;
 
         const queryUpdate = 'UPDATE fichas SET clase = ? WHERE numero = ? AND modificar = 1';
-        const updateResult = await bd.query(queryUpdate, [nombre, numero]);
+        const [updateResult] = await bd.query(queryUpdate, [nombre, numero]);
         
         if (updateResult && updateResult.affectedRows > 0) {
             await flowDynamic('Nueva clase: ' + nombre);
@@ -514,7 +510,7 @@ const flujoPrinF = addKeyword('FLUJO_PRINS')
         let numero = ctx.from;
 
         const queryUpdate = 'UPDATE fichas SET raza = ? WHERE numero = ? AND modificar = 1';
-        const updateResult = await bd.query(queryUpdate, [nombre, numero]);
+        const [updateResult] = await bd.query(queryUpdate, [nombre, numero]);
         
         if (updateResult && updateResult.affectedRows > 0) {
             await flowDynamic('Nueva raza: ' + nombre);
@@ -539,7 +535,7 @@ const flujoPrinF = addKeyword('FLUJO_PRINS')
         let numero = ctx.from;
 
         const queryUpdate = 'UPDATE fichas SET nombre = ? WHERE numero = ? AND modificar = 1';
-        const updateResult = await bd.query(queryUpdate, [nombre, numero]);
+        const [updateResult] = await bd.query(queryUpdate, [nombre, numero]);
         
         if (updateResult && updateResult.affectedRows > 0) {
             await flowDynamic('Nuevo nombre: ' + nombre);
@@ -566,7 +562,8 @@ const flujoPrinF = addKeyword('FLUJO_PRINS')
         const query1 = 'UPDATE fichas set modificar = 1 WHERE numero = ? AND id = ?';
           
         try {
-            const [rows1] = await bd.query(query,[ctx.from,ctx.body]);
+            const [row1] = await bd.query(query,[ctx.from,ctx.body]);
+            const rows1 = row1[0];
             await bd.query(query1,[ctx.from,ctx.body]);
 
             if(rows1){
@@ -599,7 +596,7 @@ const flujoPrinF = addKeyword('FLUJO_PRINS')
             
         try {
             val = 0
-            const rows1 = await bd.query(query,[ctx.from]);
+            const [rows1] = await bd.query(query,[ctx.from]);
             await bd.query(query1,[ctx.from]);
 
             if(rows1){
@@ -656,8 +653,9 @@ const flujoPrinF = addKeyword('FLUJO_PRINS')
         const query1 = 'SELECT f.observaciones, s.nombre FROM fichas_aceptadas f INNER JOIN usuarios s on s.numero = f.numero WHERE id_ficha = ?';
             
         try {
-            const [rows1] = await bd.query(query,[ctx.from,ctx.body]);
-            const rows = await bd.query(query1,[ctx.body]);
+            const [row1] = await bd.query(query,[ctx.from,ctx.body]);
+            const rows1 = row1[0]
+            const [rows] = await bd.query(query1,[ctx.body]);
 
             if(rows1){
                 await flowDynamic("Aqui tienes tu ficha");
