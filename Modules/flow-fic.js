@@ -30,21 +30,12 @@ async function mensajeR(numero){
     let mensaje = "";
         
     try {
-        const [rows] = await bd.query(query1, [numero]);
+        const [row] = await bd.query(query1, [numero]);
+        const rows = row[0];
         const mensajesB = ["hi...","biennn te ayudare","si claro ya sabes donde estas","shh hay muchos por aqui","acceso consedido... no molestes","bien, dime que quieres","los chicos de hoy deberian entender el respeto","bien estas aqui que requieres","mi nombre?... llamame flora"]
         const rmensajeb = mensajesB[Math.floor(Math.random() * mensajesB.length)];
 
-    if(rows.rol == 1){
-
-        mensaje = rmensajeb + '\nEste es el sistema de fichas,' + 
-        '\nEres: _*' + rows.nombre + '*_' + 
-        '\nAcciones:' +
-        '\n> [In] Ayuda para el usuario' +
-        '\n> [Ag] agregar fichas' +
-        '\n> [Ve] Ver fichas' +
-        '\n> [Ac] Actualizar ficha' +
-        '\n> [Nd] Salir'
-    }else if(rows.rol == 2){
+    if(rows.rol == 2){
 
         mensaje = rmensajeb + '\nEste es el sistema de fichas para administradores,' + 
         '\nEres: _*' + rows.nombre + '*_ **AD**' + 
@@ -64,6 +55,15 @@ async function mensajeR(numero){
         '\n> [Bu] Buscar fichas' +
         '\n> [Ac] Actualizar fichas' +
         '\n> [El] Eliminar fichas' +
+        '\n> [Nd] Salir'
+    }else{
+        mensaje = rmensajeb + '\nEste es el sistema de fichas,' + 
+        '\nEres: _*' + rows.nombre + '*_' + 
+        '\nAcciones:' +
+        '\n> [In] Ayuda para el usuario' +
+        '\n> [Ag] agregar fichas' +
+        '\n> [Ve] Ver fichas' +
+        '\n> [Ac] Actualizar ficha' +
         '\n> [Nd] Salir'
     }
 } catch (error) {
@@ -309,11 +309,9 @@ const flujoPrinF = addKeyword('FLUJO_PRINS')
         }
 
         try {
-            const rows1 = await bd.query(query,busqueda);
+            const [rows1] = await bd.query(query,busqueda);
 
             console.log(rows1)
-            console.log("---------------")
-            console.log([rows1])
             console.log("---------------")
 
             if(rows1){
