@@ -311,7 +311,7 @@ const flujoPrinF = addKeyword('FLUJO_PRINS')
         try {
             const [rows1] = await bd.query(query,busqueda);
 
-            console.log(rows1)
+            console.log(rows1[0])
             console.log("---------------")
 
             if(rows1){
@@ -628,7 +628,7 @@ const flujoPrinF = addKeyword('FLUJO_PRINS')
             
         try {
             val = 0
-            const rows1 = await bd.query(query,[ctx.from]);
+            const [rows1] = await bd.query(query,[ctx.from]);
 
             if(rows1){
                 rows1.forEach(e => {
