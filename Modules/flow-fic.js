@@ -310,6 +310,7 @@ const flujoPrinF = addKeyword('FLUJO_PRINS')
             const rows1 = await bd.query(query,busqueda);
 
             if(rows1){
+                console.log(rows1)
                 rows1.forEach(e => {
                     Fichas += "\n> ID *_[ " + e.id + " ]_* \n> Nombre: *["  + e.nombre + "]* \n> Raza _[" + e.raza + "]_\n> Clase _[" + e.clase + "]_\n\n" ;
                 });
