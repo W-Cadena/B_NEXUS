@@ -10,6 +10,8 @@ async function validar(nombre, numero) {
         
         try {
             const [rows] = await bd.query(query1, [num]);
+            console.log(rows)
+            console.log("---------------")
 
             if (rows) {
                 val = true;
@@ -309,8 +311,12 @@ const flujoPrinF = addKeyword('FLUJO_PRINS')
         try {
             const rows1 = await bd.query(query,busqueda);
 
+            console.log(rows1)
+            console.log("---------------")
+            console.log([rows1])
+            console.log("---------------")
+
             if(rows1){
-                console.log(rows1)
                 rows1.forEach(e => {
                     Fichas += "\n> ID *_[ " + e.id + " ]_* \n> Nombre: *["  + e.nombre + "]* \n> Raza _[" + e.raza + "]_\n> Clase _[" + e.clase + "]_\n\n" ;
                 });
