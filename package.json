@@ -13,7 +13,7 @@
         "@bot-whatsapp/bot": "latest",
         "@bot-whatsapp/cli": "latest",
         "@bot-whatsapp/database": "latest",
-        "@bot-whatsapp/provider": "latest",
+        "@bot-whatsapp/provider": "git+https://github.com/W-Cadena/-bot-whatsapp.git",
         "@bot-whatsapp/portal": "latest",
         "mysql2": "^2.3.3",
         "@whiskeysockets/baileys": "6.5.0",
